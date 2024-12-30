@@ -10,18 +10,21 @@ from email.utils import COMMASPACE, formatdate
 import getpass
 from datetime import datetime
 
-BASE_URL = 'https://remoteok.com/api/'
-USER_AGENT = 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/128.0.0.0 Safari/537.36 OPR/114.0.0.0'
-REQUEST_HEADER = {
-    'User-Agent': USER_AGENT,
-    'Accept-Language': 'en-US, en;q=0.5',
+API_KEY = 'your_indeed_api_key'
+BASE_URL = 'https://api.indeed.com/ads/apisearch'
+REQUEST_PARAMS = {
+    'q': 'remote',
+    'l': '',
+    'format': 'json',
+    'v': '2',
+    'publisher': API_KEY,
 }
 
 def get_job_postings():
     try:
-        res = requests.get(url=BASE_URL, headers=REQUEST_HEADER)
+        res = requests.get(url=BASE_URL, params=REQUEST_PARAMS)
         res.raise_for_status()
-        return res.json()
+        return res.json().get('results', [])
     except requests.exceptions.RequestException as e:
         print(f"Error fetching data: {e}")
         return []
@@ -37,7 +40,7 @@ def output_jobs_to_xls(data):
         values = list(job.values())
         for x in range(len(values)):
             job_sheet.write(i + 1, x, values[x])
-    filename = f'remote_jobs_{datetime.now().strftime("%Y%m%d_%H%M%S")}.xls'
+    filename = f'indeed_jobs_{datetime.now().strftime("%Y%m%d_%H%M%S")}.xls'
     wb.save(filename)
     return filename
 
@@ -68,7 +71,7 @@ def send_email(send_from, send_to, subject, text, files=None):
         smtp.close()
 
 if __name__ == "__main__":
-    json_data = get_job_postings()[1:]
+    json_data = get_job_postings()
     if json_data:
         filename = output_jobs_to_xls(json_data)
         send_email('your email', ['recipient email'], 'Jobs Posting', 'Please, find attached a list of job postings.', files=[filename])
