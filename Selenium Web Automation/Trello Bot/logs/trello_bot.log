@@ -1,21 +1,2 @@
-2025-01-01 18:23:18,423 - ERROR - Bot operation failed: Message: unknown error: cannot find Chrome binary
-Stacktrace:
-#0 0x55da2d9454e3 <unknown>
-#1 0x55da2d674c76 <unknown>
-#2 0x55da2d69b757 <unknown>
-#3 0x55da2d69a029 <unknown>
-#4 0x55da2d6d8ccc <unknown>
-#5 0x55da2d6d847f <unknown>
-#6 0x55da2d6cfde3 <unknown>
-#7 0x55da2d6a52dd <unknown>
-#8 0x55da2d6a634e <unknown>
-#9 0x55da2d9053e4 <unknown>
-#10 0x55da2d9093d7 <unknown>
-#11 0x55da2d913b20 <unknown>
-#12 0x55da2d90a023 <unknown>
-#13 0x55da2d8d81aa <unknown>
-#14 0x55da2d92e6b8 <unknown>
-#15 0x55da2d92e847 <unknown>
-#16 0x55da2d93e243 <unknown>
-#17 0x7f13c0e4dac3 <unknown>
+
 
